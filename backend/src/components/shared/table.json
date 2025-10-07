@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_tables",
+  "info": {
+    "displayName": "Table",
+    "icon": "database"
+  },
+  "options": {},
+  "attributes": {
+    "tableData": {
+      "type": "json"
+    },
+    "caption": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

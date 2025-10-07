@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_charts",
+  "info": {
+    "displayName": "Charts",
+    "icon": "chartPie"
+  },
+  "options": {},
+  "attributes": {
+    "chartType": {
+      "type": "enumeration",
+      "enum": [
+        "line",
+        "bar",
+        "pie",
+        "scatter"
+      ]
+    },
+    "chartData": {
+      "type": "json"
+    }
+  },
+  "config": {}
+}
