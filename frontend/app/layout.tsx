@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import LoadingBar from "@/components/LoadingBar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,8 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="bg-[#F6F7F3]">
-
-          {children}
+          <LoadingBar>{children}  </LoadingBar>
         </div>
       </body>
     </html>

@@ -1,11 +1,12 @@
 "use client";
-
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+
 
   return (
     <header className="w-full border-b border-gray-200 bg-white">
@@ -23,19 +24,7 @@ export default function Navbar() {
         </ul>
 
         {/* Subscribe Form - Desktop */}
-        <form className="hidden lg:flex items-center bg-gray-100 rounded-full overflow-hidden">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="px-4 py-2 text-sm bg-gray-100 text-gray-700 w-48 focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="bg-[#214E4E] text-white px-5 py-2 text-sm font-medium hover:bg-[#173838] transition"
-          >
-            Subscribe
-          </button>
-        </form>
+        <SearchBar className="hidden lg:flex" />
 
         {/* Mobile Menu Toggle */}
         <button onClick={() => setOpen(!open)} className="lg:hidden text-[#214E4E]">
@@ -56,19 +45,7 @@ export default function Navbar() {
             <li className="cursor-pointer">Pricing</li>
             <li className="ßcursor-pointer">About Us</li>
             {/* Subscribe Form - Mobile */}
-            <form className="flex items-center bg-gray-100 rounded-full overflow-hidden">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-4 py-2 text-sm bg-gray-100 text-gray-700 w-48 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="bg-[#214E4E] text-white px-5 py-2 text-sm font-medium hover:bg-[#173838] transition"
-              >
-                Subscribe
-              </button>
-            </form>
+            <SearchBar className="flex lg:hidden" />
           </ul>
         </div>
       )}

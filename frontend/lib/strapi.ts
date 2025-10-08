@@ -31,3 +31,15 @@ export async function getCategories() {
     const data = await res.json();
     return data.data; // Strapi returns { data, meta }
 }
+
+export async function getSearchResult(query: string) {
+    if (!query) return [];
+
+    const res = await fetch(
+        `${process.env.STRAPI_URL}/api/articles?filters[$or][0][title][$containsi]=${query}&filters[$or][1][description][$containsi]=${query}&filters[$or][2][author][name][$containsi]=${query}&filters[$or][3][category][name][$containsi]=${query}&populate[author][populate]=avatar&populate[category]=true&populate[cover]=true`,
+        { cache: "no-store" }
+    );
+
+    const data = await res.json();
+    return data.data;
+}
