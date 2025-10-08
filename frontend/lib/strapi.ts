@@ -1,9 +1,9 @@
 // lib/strapi.ts
-export const STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
-
+export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_BASE;
 
 
 export async function getPosts(filterBy: string, filterString: string) {
+    // Build the URL based on filter type
     let finalUrl = "";
     if (filterBy === "all") {
         finalUrl = `${STRAPI_URL}/api/articles?populate[author][populate]=avatar&populate[category]=true&populate[cover]=true`;
@@ -12,7 +12,7 @@ export async function getPosts(filterBy: string, filterString: string) {
     } else {
         return null
     }
-    console.log(finalUrl)
+
     const res = await fetch(finalUrl, { next: { revalidate: 60 } });
     const data = await res.json();
     return data.data; // Strapi returns { data, meta }
@@ -26,6 +26,7 @@ export async function getPostBySlug(slug: string, status: "draft" | "published")
 }
 
 export async function getCategories() {
+
     const finalUrl = `${STRAPI_URL}/api/categories`;
     const res = await fetch(finalUrl, { next: { revalidate: 60 } });
     const data = await res.json();
@@ -36,7 +37,7 @@ export async function getSearchResult(query: string) {
     if (!query) return [];
 
     const res = await fetch(
-        `${process.env.STRAPI_URL}/api/articles?filters[$or][0][title][$containsi]=${query}&filters[$or][1][description][$containsi]=${query}&filters[$or][2][author][name][$containsi]=${query}&filters[$or][3][category][name][$containsi]=${query}&populate[author][populate]=avatar&populate[category]=true&populate[cover]=true`,
+        `${STRAPI_URL}/api/articles?filters[$or][0][title][$containsi]=${query}&filters[$or][1][description][$containsi]=${query}&filters[$or][2][author][name][$containsi]=${query}&filters[$or][3][category][name][$containsi]=${query}&populate[author][populate]=avatar&populate[category]=true&populate[cover]=true`,
         { cache: "no-store" }
     );
 

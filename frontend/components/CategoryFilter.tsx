@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation"; // allows reading the current rou
 
 // Default Strapi URL with a fallback for local development. Prefer using
 // an environment variable in production to allow different hosts.
-export const STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
+//const STRAPI_URL = process.env.STRAPI_BASE_URL;
 
 // Minimal shape for category objects returned by `getCategories()`.
 type CategoryFilterProps = {

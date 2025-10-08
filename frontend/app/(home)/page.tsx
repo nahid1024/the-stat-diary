@@ -1,12 +1,8 @@
 import Cards from "@/components/cards";
 import CategoryFilter from "@/components/CategoryFilter";
-import { getPosts } from "@/lib/strapi";
+import { getPosts, STRAPI_URL } from "@/lib/strapi";
 import { getRandomColor } from "@/lib/randomBadgeColor";
 import Link from "next/link";
-
-// Base URL for media served by Strapi. In production prefer reading
-// this from an environment variable (e.g. process.env.STRAPI_URL).
-const strapiUrl = "http://localhost:1337";
 
 /**
  * Home
@@ -70,7 +66,7 @@ export default async function Home() {
                     if `author.avatar.formats.small.url` may be missing.
                   */}
                   <img
-                    src={`${strapiUrl}${posts[0].author.avatar.formats.small.url}`}
+                    src={`${STRAPI_URL}${posts[0].author.avatar.formats.small.url}`}
                     alt={posts[0].author.name}
                     className="w-10 h-10 rounded-full object-cover"
                   />
@@ -86,7 +82,7 @@ export default async function Home() {
                   `next/image` and configure allowed domains in next.config.
                 */}
                 <img
-                  src={`${strapiUrl}${posts[0].cover.formats.medium.url}`}
+                  src={`${STRAPI_URL}${posts[0].cover.formats.medium.url}`}
                   alt={posts[0].title}
                   className="w-full h-48 md:h-100 object-cover"
                 />

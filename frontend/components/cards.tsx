@@ -1,12 +1,8 @@
 import Link from "next/link";
 import { getRandomColor } from "@/lib/randomBadgeColor";
 import { AllPostProps } from "@/lib/types";
+import { STRAPI_URL } from "@/lib/strapi";
 
-
-// Base URL for media served from Strapi.
-// NOTE: this is hard-coded for local development. Prefer using an
-// environment variable (e.g. process.env.STRAPI_URL) for production.
-const strapiUrl = "http://localhost:1337";
 
 interface CardsProps {
   // `OtherPosts` is an array of post objects returned from Strapi.
@@ -57,7 +53,7 @@ export default async function Cards({ OtherPosts }: CardsProps) {
             <div>
               {/* Post cover image. We use the 'medium' format provided by Strapi */}
               <img
-                src={`${strapiUrl}${post.cover.formats.medium.url}`}
+                src={`${STRAPI_URL}${post.cover.formats.medium.url}`}
                 alt={post.title}
                 className="w-full h-48 object-cover"
               />
@@ -84,7 +80,7 @@ export default async function Cards({ OtherPosts }: CardsProps) {
                 {/* Author section: avatar + name */}
                 <div className="flex items-center gap-3 mt-6">
                   <img
-                    src={`${strapiUrl}${post.author.avatar.formats.small.url}`}
+                    src={`${STRAPI_URL}${post.author.avatar.formats.small.url}`}
                     alt={post.author.name}
                     className="w-8 h-8 rounded-full object-cover"
                   />

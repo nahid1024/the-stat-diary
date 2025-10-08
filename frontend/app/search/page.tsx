@@ -6,7 +6,7 @@ import Cards from '@/components/cards'
 export default async function page({ searchParams }: { searchParams: Promise<{ query: string }> }) {
     const query = (await searchParams).query;
     const posts = await getSearchResult(query);
-    console.log(posts)
+
     return (
         <main className="min-h-screen text-gray-900">
 

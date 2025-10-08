@@ -1,12 +1,12 @@
 // app/posts/[slug]/page.tsx
 import Image from "next/image";
 import BlocksRenderer from "@/components/blockRenderer";
-import { getPostBySlug } from "@/lib/strapi";
+import { getPostBySlug, STRAPI_URL } from "@/lib/strapi";
 import { draftMode } from "next/headers";
 
 // NOTE: Use an environment variable for the Strapi URL in production
 // (e.g. process.env.STRAPI_URL) so the host can vary by environment.
-const strapiUrl = "http://localhost:1337";
+
 
 type Props = {
     // Next.js passes `params` as an object; here it's a promise that
@@ -74,7 +74,7 @@ export default async function PostPage({ params }: Props) {
                     // Using Next's Image for the author avatar provides
                     // automatic optimization and better layout shifting.
                     <Image
-                        src={`${strapiUrl}${post.author.image}`}
+                        src={`${STRAPI_URL}${post.author.image}`}
                         alt={post.author.name}
                         width={40}
                         height={40}
@@ -96,7 +96,7 @@ export default async function PostPage({ params }: Props) {
                         `Image`, be sure to update allowed domains in next.config.
                     */}
                     <img
-                        src={`${strapiUrl}${post.image}`}
+                        src={`${STRAPI_URL}${post.image}`}
                         alt={post.title}
                         width={800}
                         height={400}

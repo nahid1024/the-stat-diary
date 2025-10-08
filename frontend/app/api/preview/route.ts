@@ -37,8 +37,6 @@ export const GET = async (request: Request) => {
     const searchParamsData = Object.fromEntries(searchParams);
     const { secret, slug, locale, uid, status } = searchParamsData;
 
-    console.log(searchParamsData);
-
     // Check the secret and next parameters
     if (secret !== process.env.PREVIEW_SECRET) {
         return new Response("Invalid token", { status: 401 });
