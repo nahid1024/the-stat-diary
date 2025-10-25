@@ -10,6 +10,7 @@ export type barChartProps = {
 }
 
 export type ChartProps = {
+    id:number,
     chartType: string,
     chartData: barChartProps
 }
@@ -21,6 +22,8 @@ export type MediaProps = {
             medium: {
                 url: string;
                 alt: string;
+                width: number;
+                height: number;
             }
         };
     }

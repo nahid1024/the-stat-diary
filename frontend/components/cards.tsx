@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getRandomColor } from "@/lib/randomBadgeColor";
 import { AllPostProps } from "@/lib/types";
 import { STRAPI_URL } from "@/lib/strapi";
+import Image from "next/image";
 
 
 interface CardsProps {
@@ -52,10 +53,12 @@ export default async function Cards({ OtherPosts }: CardsProps) {
           >
             <div>
               {/* Post cover image. We use the 'medium' format provided by Strapi */}
-              <img
+              <Image
                 src={`${STRAPI_URL}${post.cover.formats.medium.url}`}
                 alt={post.title}
                 className="w-full h-48 object-cover"
+                width={400}
+                height={350}
               />
 
               {/* Card body: category badge, title, description, and author */}
@@ -79,10 +82,12 @@ export default async function Cards({ OtherPosts }: CardsProps) {
 
                 {/* Author section: avatar + name */}
                 <div className="flex items-center gap-3 mt-6">
-                  <img
+                  <Image
                     src={`${STRAPI_URL}${post.author.avatar.formats.small.url}`}
                     alt={post.author.name}
                     className="w-8 h-8 rounded-full object-cover"
+                    width={32}
+                    height={32}
                   />
                   <span className="text-sm text-gray-700">By {post.author.name}</span>
                 </div>

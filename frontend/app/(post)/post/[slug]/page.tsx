@@ -3,6 +3,8 @@ import Image from "next/image";
 import BlocksRenderer from "@/components/blockRenderer";
 import { getPostBySlug, STRAPI_URL } from "@/lib/strapi";
 import { draftMode } from "next/headers";
+import formatDateTime from "@/lib/formatDateTime";
+import { getRandomColor } from "@/lib/randomBadgeColor";
 
 // NOTE: Use an environment variable for the Strapi URL in production
 // (e.g. process.env.STRAPI_URL) so the host can vary by environment.
@@ -51,7 +53,7 @@ export default async function PostPage({ params }: Props) {
         content: postData.blocks,
         image: postData.cover.formats.medium.url || "",
         category: postData.category.name,
-        date: postData.createdAt,
+        date: postData.updatedAt,
         author: {
             name: postData.author.name || "Unknown",
             image: postData.author.avatar.url || "",
@@ -63,7 +65,7 @@ export default async function PostPage({ params }: Props) {
     return (
         <div className="max-w-4xl mx-auto py-10 px-4 lg:px-0">
             {/* Category */}
-            <p className="text-sm text-blue-600 font-semibold mb-2">{post.category}</p>
+            <p className={`inline-block px-3 py-1 rounded-full text-sm ${getRandomColor()} font-semibold mb-2`}>{post.category}</p>
 
             {/* Title */}
             <h1 className="text-5xl font-bold mb-4 text-gray-800">{post.title}</h1>
@@ -78,12 +80,13 @@ export default async function PostPage({ params }: Props) {
                         alt={post.author.name}
                         width={40}
                         height={40}
+                        loading="lazy"
                         className="rounded-full"
                     />
                 )}
                 <div className="text-sm text-gray-600">
                     <p>{post.author.name}</p>
-                    <p>{post.date}</p>
+                    <p>{formatDateTime(post.date)}</p>
                 </div>
             </div>
 
@@ -91,15 +94,16 @@ export default async function PostPage({ params }: Props) {
             {post.image && (
                 <div className="mb-8">
                     {/*
-                        This `<img>` is intentionally simple, but Next recommends
-                        using `next/image` for performance. If you switch to
-                        `Image`, be sure to update allowed domains in next.config.
+                        Cover image: using Next's Image component for automatic
+                        optimization and better performance. Ensure the domain
+                        is allowed in next.config.js.
                     */}
-                    <img
+                    <Image
                         src={`${STRAPI_URL}${post.image}`}
                         alt={post.title}
                         width={800}
                         height={400}
+                        loading="lazy"
                         className="w-full h-auto rounded-2xl"
                     />
                 </div>

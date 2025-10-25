@@ -1,11 +1,18 @@
-import React from "react";
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
+import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
-import TableBlock from "./TableBlock";
+import remarkMath from "remark-math";
+import type {
+	ChartProps,
+	CodeBlockProps,
+	MediaProps,
+	RichTextProps,
+	TableProps,
+} from "@/lib/types";
 import Charts from "./Charts";
 import CodeBlock from "./CodeBlock";
-import { ChartProps, MediaProps, TableProps, RichTextProps, CodeBlockProps } from "@/lib/types";
-
+import TableBlock from "./TableBlock";
 
 /**
  * Block union type
@@ -16,9 +23,14 @@ import { ChartProps, MediaProps, TableProps, RichTextProps, CodeBlockProps } fro
  * of usage in the renderer. Each block must include a `__component`
  * discriminator that indicates how it should be rendered.
  */
-type Block = ChartProps & MediaProps & TableProps & RichTextProps & CodeBlockProps & {
-    __component: string;
-}
+type Block = ChartProps &
+	MediaProps &
+	TableProps &
+	RichTextProps &
+	CodeBlockProps & {
+        id: number;
+		__component: string;
+	};
 
 // Base URL for media assets served by Strapi. For production use an
 // environment variable (e.g. process.env.STRAPI_URL) instead of a
@@ -44,74 +56,91 @@ const strapiUrl = "http://localhost:1337";
  *   and CodeBlock).
  */
 export default function BlocksRenderer({ blocks }: { blocks: Block[] }) {
-    return (
-        <div>
-            {blocks.map((block, i) => {
-                switch (block.__component) {
-                    // Rich text: render Markdown/HTML-like content. We pass an
-                    // empty string as a fallback when `block.body` is undefined.
-                    case "shared.rich-text":
-                        return (
-                            <ReactMarkdown key={i} remarkPlugins={[remarkGfm]}>
-                                {block.body || ""}
-                            </ReactMarkdown>
-                        );
+	return (
+		<div>
+			{blocks.map((block) => {
+				switch (block.__component) {
+					// Rich text: render Markdown/HTML-like content. We pass an
+					// empty string as a fallback when `block.body` is undefined.
+					case "shared.rich-text":
+						return (
+							<ReactMarkdown
+								key={`richtext-${block.id}`}
+								remarkPlugins={[remarkGfm, remarkMath]}
+								rehypePlugins={[rehypeKatex]}
+							>
+								{block.body || ""}
+							</ReactMarkdown>
+						);
 
-                    // Media block: image with optional caption. We use the
-                    // 'medium' format provided by Strapi; ensure the path
-                    // exists before attempting to read it in production data.
-                    case "shared.media":
-                        return (
-                            <div key={i} className="flex flex-col items-center">
-                                <img
-                                    key={i}
-                                    src={`${strapiUrl}${block.file.formats.medium.url}`}
-                                    alt={block.file.formats.medium.alt || "image"}
-                                    className="rounded-md"
-                                />
-                                <h5 className="text-sm text-gray-600">{block.caption}</h5>
-                            </div>
-                        );
+					// Media block: image with optional caption. We use the
+					// 'medium' format provided by Strapi; ensure the path
+					// exists before attempting to read it in production data.
+					case "shared.media":
+						return (
+							<div key={`media-${block.id}`} className="flex flex-col items-center">
+								<Image
+									src={`${strapiUrl}${block.file.formats.medium.url}`}
+									alt={block.file.formats.medium.alt || "image"}
+									className="rounded-md"
+                                    width={block.file.formats.medium.width}
+                                    height={block.file.formats.medium.height}
+                                    loading="lazy"
+								/>
+								<h5 className="text-sm text-gray-600">{block.caption}</h5>
+							</div>
+						);
 
-                    // Table block: delegates rendering to the TableBlock component.
-                    case "shared.table":
-                        return (
-                            <div key={i} className="border border-gray-300 rounded-lg mt-5 px-8 py-2">
-                                <TableBlock headers={block.tableData.headers} rows={block.tableData.rows} caption={block.caption} />
-                            </div>
-                        )
+					// Table block: delegates rendering to the TableBlock component.
+					case "shared.table":
+						return (
+							<div
+								key={`table-${block.id}`}
+								className="border border-gray-300 rounded-lg mt-5 px-8 py-2"
+							>
+								<TableBlock
+									headers={block.tableData.headers}
+									rows={block.tableData.rows}
+									caption={block.caption}
+								/>
+							</div>
+						);
 
-                    // Charts: delegates to Charts component which handles
-                    // rendering different chart types based on `chartType`.
-                    case "shared.charts":
-                        return (
-                            <div key={i}>
-                                <Charts chartType={block.chartType} chartData={block.chartData} />
-                            </div>
-                        )
+					// Charts: delegates to Charts component which handles
+					// rendering different chart types based on `chartType`.
+					case "shared.charts":
+						return (
+							<div key={`chart-${block.id}`} className="my-6">
+								<Charts
+									id={block.id}
+									chartType={block.chartType}
+									chartData={block.chartData}
+								/>
+							</div>
+						);
 
-                    // Code block: uses the CodeBlock component which provides
-                    // syntax highlighting and a copy-to-clipboard button.
-                    case "shared.code-block":
-                        return (
-                            <div key={i}>
-                                <CodeBlock
-                                    language={block.language}
-                                    code={block.code}
-                                    darkMode={true} // consider making theme configurable
-                                />
-                            </div>
-                        )
+					// Code block: uses the CodeBlock component which provides
+					// syntax highlighting and a copy-to-clipboard button.
+					case "shared.code-block":
+						return (
+							<div key={block.id} className="my-6">
+								<CodeBlock
+									language={block.language}
+									code={block.code}
+									darkMode={true} // consider making theme configurable
+								/>
+							</div>
+						);
 
-                    // Fallback for unknown block types: helpful for debugging.
-                    default:
-                        return (
-                            <div key={i}>
-                                <p>Unknown block type: {block.__component}</p>
-                            </div>
-                        );
-                }
-            })}
-        </div>
-    );
+					// Fallback for unknown block types: helpful for debugging.
+					default:
+						return (
+							<div key={`unknown-${block.id}`}>
+								<p>Unknown block type: {block.__component}</p>
+							</div>
+						);
+				}
+			})}
+		</div>
+	);
 }
