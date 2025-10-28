@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import LoadingBar from "@/components/LoadingBar";
+import { Toaster } from "@/components/ui/sonner";
 import 'katex/dist/katex.min.css';
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
         <div className="bg-[#F6F7F3]">
           <LoadingBar>{children}  </LoadingBar>
         </div>
+        <Toaster position="top-center" />
       </body>
     </html>
   );

@@ -1,7 +1,20 @@
 export default [
   'strapi::logger',
   'strapi::errors',
-  'strapi::security',
+  //'strapi::security',
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'connect-src': ["'self'", , 'localhost'],
+          'img-src': ["'self'", 'data:', 'blob:', 'localhost'],
+          'media-src': ["'self'", 'data:', 'blob:', 'localhost'],
+        },
+      },
+    },
+  },
   'strapi::cors',
   'strapi::poweredBy',
   'strapi::query',

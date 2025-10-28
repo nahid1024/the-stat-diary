@@ -4,6 +4,7 @@ import CategoryFilter from "@/components/CategoryFilter";
 import Cards from "@/components/cards";
 import { getRandomColor } from "@/lib/randomBadgeColor";
 import { getPosts, STRAPI_URL } from "@/lib/strapi";
+
 /**
  * Home
  *
@@ -29,10 +30,12 @@ export default async function Home() {
 	// e.g. if (!posts || posts.length === 0) return <p>No posts yet</p>;
 
 	return (
-		<main className="min-h-screen text-gray-900">
-			{/* Blog Section */}
-			<section className="max-w-6xl mx-auto px-6 py-12">
-				<h1 className="text-4xl font-bold mb-6">Blog</h1>
+		<>
+			
+			<main className="min-h-screen text-gray-900">
+				{/* Blog Section */}
+				<section className="max-w-6xl mx-auto px-6 py-12">
+					<h1 className="text-4xl font-bold mb-6">Blog</h1>
 
 				{/* Categories */}
 				<CategoryFilter />
@@ -103,5 +106,6 @@ export default async function Home() {
 				<Cards OtherPosts={posts.slice(1)} />
 			</section>
 		</main>
+		</>
 	);
 }

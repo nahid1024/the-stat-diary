@@ -5,7 +5,7 @@ export type barChartProps = {
     }[],
     datakeys: {
         xKey: string,
-        barKey: string[] | number[]
+        yKey: string[] | number[]
     }
 }
 

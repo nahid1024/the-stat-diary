@@ -1,3 +1,5 @@
+import NewsLetterForm from "./NewsLetterForm";
+
 // components/Footer.tsx
 export default function Footer() {
     return (
@@ -24,22 +26,7 @@ export default function Footer() {
                 </div>
 
                 {/* Newsletter */}
-                <div>
-                    <h3 className="text-lg font-semibold mb-3">Stay Updated</h3>
-                    <form className="flex bg-white rounded-full overflow-hidden">
-                        <input
-                            type="email"
-                            placeholder="Your email"
-                            className="px-4 py-2 text-sm text-gray-700 w-full focus:outline-none"
-                        />
-                        <button
-                            type="submit"
-                            className="bg-[#173838] text-white px-5 py-2 text-sm font-medium hover:bg-[#0f2727] transition"
-                        >
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
+                <NewsLetterForm />
             </div>
 
             {/* Bottom */}
