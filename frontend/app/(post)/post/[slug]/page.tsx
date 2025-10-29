@@ -5,6 +5,8 @@ import { getPostBySlug, STRAPI_URL } from "@/lib/strapi";
 import { draftMode } from "next/headers";
 import formatDateTime from "@/lib/formatDateTime";
 import { getRandomColor } from "@/lib/randomBadgeColor";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 // NOTE: Use an environment variable for the Strapi URL in production
 // (e.g. process.env.STRAPI_URL) so the host can vary by environment.
@@ -54,6 +56,7 @@ export default async function PostPage({ params }: Props) {
         image: postData.cover.formats.medium.url || "",
         category: postData.category.name,
         date: postData.updatedAt,
+        keytakes: postData.keytakes,
         author: {
             name: postData.author.name || "Unknown",
             image: postData.author.avatar.url || "",
@@ -68,10 +71,10 @@ export default async function PostPage({ params }: Props) {
             <p className={`inline-block px-3 py-1 rounded-full text-sm ${getRandomColor()} font-semibold mb-2`}>{post.category}</p>
 
             {/* Title */}
-            <h1 className="text-5xl font-bold mb-4 text-gray-800">{post.title}</h1>
+            <h1 className="text-5xl font-bold my-5 text-gray-800">{post.title.toLowerCase().split(/\s+/).map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>
 
             {/* Author & Date */}
-            <div className="flex items-center gap-3 mb-8">
+            <div className="flex items-center gap-3 my-8">
                 {post.author.image && (
                     // Using Next's Image for the author avatar provides
                     // automatic optimization and better layout shifting.
@@ -89,6 +92,19 @@ export default async function PostPage({ params }: Props) {
                     <p>{formatDateTime(post.date)}</p>
                 </div>
             </div>
+
+            {/* Key takeways */}
+
+            {post.keytakes && post.keytakes.length > 0 && (
+                <div className="my-10 p-4">
+                    <h1 className="font-semibold mb-8 text-xl">Key Takeaways</h1>
+                    <div className="list-disc prose prose-neutral text-gray-900 text-lg">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {post.keytakes || ""}
+                        </ReactMarkdown>
+                    </div>
+                </div>
+            )}
 
             {/* Main Image */}
             {post.image && (
@@ -111,10 +127,10 @@ export default async function PostPage({ params }: Props) {
 
             {/* Content: the BlocksRenderer handles different structured blocks
                 (rich text, media, tables, charts, code blocks, etc.) */}
-            <div className="prose prose-lg max-w-none text-gray-800
-                      prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl
-                      prose-p:text-gray-700 prose-li:ml-6 prose-li:mb-2
-                      prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded">
+            <div className="prose prose-lg max-w-none text-gray-900
+                prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl
+                prose-p:text-gray-700 prose-p:leading-loose prose-p:text-lg prose-li:ml-6 prose-li:mb-2
+                prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded">
                 <BlocksRenderer blocks={post.content} />
             </div>
         </div>

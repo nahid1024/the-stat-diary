@@ -1,7 +1,5 @@
 export default function formatDateTime(dateString: string): string {
-    const date = new Intl.DateTimeFormat("en-US", {
-        dateStyle: "medium",
-        timeStyle: "short",
-    }).format(new Date(dateString));
-    return date;
+  return new Intl.DateTimeFormat("en-US", {
+    dateStyle: "long", // shows "October 5, 2025"
+  }).format(new Date(dateString));
 }

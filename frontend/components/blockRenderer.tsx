@@ -64,13 +64,13 @@ export default function BlocksRenderer({ blocks }: { blocks: Block[] }) {
 					// empty string as a fallback when `block.body` is undefined.
 					case "shared.rich-text":
 						return (
+							<div key={`richtext-${block.id}`}>
 							<ReactMarkdown
-								key={`richtext-${block.id}`}
 								remarkPlugins={[remarkGfm, remarkMath]}
 								rehypePlugins={[rehypeKatex]}
 							>
 								{block.body || ""}
-							</ReactMarkdown>
+							</ReactMarkdown></div>
 						);
 
 					// Media block: image with optional caption. We use the

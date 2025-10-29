@@ -23,16 +23,6 @@
       "type": "uid",
       "targetField": "title"
     },
-    "cover": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ]
-    },
     "author": {
       "type": "relation",
       "relation": "manyToOne",
@@ -44,6 +34,19 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "articles"
+    },
+    "keytakes": {
+      "type": "richtext"
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
     },
     "blocks": {
       "type": "dynamiczone",
