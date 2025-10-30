@@ -39,7 +39,7 @@ export default function SearchBar({ className }: SearchBarProps) {
 
     return (
         <form
-            className={clsx("flex items-center bg-gray-100 rounded-full overflow-hidden", className)}
+            className={clsx("flex items-center bg-muted rounded-full overflow-hidden", className)}
             onSubmit={handleSubmit}
         >
             <input
@@ -47,11 +47,11 @@ export default function SearchBar({ className }: SearchBarProps) {
                 placeholder="Search the blog"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="px-4 py-2 text-sm bg-gray-100 text-gray-700 w-48 focus:outline-none"
+                className="px-4 py-2 text-sm bg-muted text-foreground/80 w-48 focus:outline-none"
             />
             <button
                 type="submit"
-                className="bg-[#214E4E] text-white px-5 py-2 text-sm font-medium hover:bg-[#173838] transition"
+                className="bg-primary text-primary-foreground px-5 py-2 text-sm font-medium hover:opacity-90 transition"
             >
                 <SearchIcon size={20} />
             </button>

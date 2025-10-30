@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import CategoryFilter from "@/components/CategoryFilter";
 import Cards from "@/components/cards";
-import { getRandomColor } from "@/lib/randomBadgeColor";
 import { getPosts, STRAPI_URL } from "@/lib/strapi";
 import formatDateTime from "@/lib/formatDateTime";
 
@@ -33,7 +32,7 @@ export default async function Home() {
 	return (
 		<>
 
-			<main className="min-h-screen text-gray-900">
+			<main className="min-h-screen text-foreground">
 				{/* Blog Section */}
 				<section className="max-w-6xl mx-auto px-6 py-12">
 
@@ -43,18 +42,20 @@ export default async function Home() {
               posts[0] exists and contains nested fields like category,
               author.avatar.formats.small.url and cover.formats.medium.url. */}
 						<Link href={`/post/${posts[0].slug}`}>
-							<div className="flex flex-col-reverse md:flex-row overflow-hidden bg-white md:bg-[#F6F7F3]">
+							<div className="flex flex-col-reverse md:flex-row overflow-hidden bg-card md:bg-background">
 								{/* Text Section */}
 								<div className="pr-20 flex flex-col justify-center lg:w-1/2">
 									{/* Post date */}
-									<div className="text-sm text-gray-600">
+									<div className="text-sm text-muted-foreground">
 										<p>{formatDateTime(posts[0].updatedAt)}</p>
 									</div>
-									<h2 className="text-lg md:text-[40px] font-semibold mt-2 text-[#214E4E]">
-										{posts[0].title.toLowerCase().split(/\s+/).map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+									{/* Post title */}
+									<h2 className="text-lg md:text-[40px] font-semibold mt-2 text-primary">
+										{posts[0].title.split(/\s+/).map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
 									</h2>
+									{/* Read more Button */}
 									<div>
-										<button type="button" className="outline-none border-none px-7 py-3 mt-10 bg-[#214E4E] text-[#F6F7F3] rounded-full">Read More</button>
+										<button type="button" className="outline-none border-none px-7 py-3 mt-10 bg-primary text-primary-foreground rounded-full">Read More</button>
 									</div>
 
 								</div>
@@ -78,7 +79,7 @@ export default async function Home() {
 							</div>
 						</Link>
 					</div>
-					<h1 className="text-2xl font-semibold text-[#214E4E] mb-6">Read By Topic</h1>
+					<h1 className="text-2xl font-semibold text-primary mb-6">Read By Topic</h1>
 					{/* Categories */}
 					<CategoryFilter />
 					{/* Other Cards */}

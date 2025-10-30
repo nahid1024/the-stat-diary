@@ -8,7 +8,7 @@ export async function getPosts(filterBy: string, filterString: string) {
     if (filterBy === "all") {
         finalUrl = `${STRAPI_URL}/api/articles?populate[author][populate]=avatar&populate[category]=true&populate[cover]=true`;
     } else if (filterBy === "category") {
-        finalUrl = `${STRAPI_URL}/api/articles?filters[category][slug][$eq]=${filterString}&populate[author][populate]=avatar&populate[category]=true&populate[cover]=true`;
+        finalUrl = `${STRAPI_URL}/api/articles?filters[category][name][$eq]=${filterString}&populate[author][populate]=avatar&populate[category]=true&populate[cover]=true`;
     } else {
         return null
     }

@@ -71,7 +71,7 @@ export default function CategoryFilter() {
     }, [pathname]);
 
     return (
-        <div className="w-full bg-[#214E4E] rounded-4xl p-2 flex flex-wrap gap-3 mb-10">
+        <div className="w-full bg-primary rounded-4xl p-2 flex flex-wrap gap-3 mb-10">
             {[...categories]
                 // Ensure "All" appears first in the list so it's easy to find.
                 .sort((a, b) => (a.name === "All" ? -1 : b.name === "All" ? 1 : 0))
@@ -79,7 +79,7 @@ export default function CategoryFilter() {
                     // Each category is a Link to the appropriate route. We use
                     // the category name for the button label and slug for the URL.
                     <Link
-                        href={cat.name === "All" ? "/" : `/category/${cat.slug}`}
+                        href={cat.name === "All" ? "/" : `/category/${cat.name}`}
                         key={cat.name}
                     >
                         <button
@@ -87,8 +87,8 @@ export default function CategoryFilter() {
                             // is the active one. We check both the slug and name to
                             // be resilient to different active-value strategies.
                             className={`px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${active === cat.slug || active === cat.name
-                                ? "bg-white text-[#214E4E]"
-                                : "text-white hover:bg-white/10"
+                                ? "bg-background text-foreground"
+                                : "text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
                                 }`}
                         >
                             {cat.name}

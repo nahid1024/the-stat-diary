@@ -49,7 +49,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ language, code, darkMode = false 
     const cleanedCode = code.replace(/```/g, "").trim();
 
     return (
-        <div className="relative my-4 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+        <div className="relative my-4 rounded-lg overflow-hidden border border-border">
             {/*
                 Header: displays the language and a copy button.
                 - The header uses a monospaced font to match the code style.
@@ -57,12 +57,11 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ language, code, darkMode = false 
                   aria-live or aria-label attributes for improved accessibility
                   if screen-reader feedback is needed.
             */}
-            <div className="flex justify-between items-center bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-mono text-gray-700 dark:text-gray-300">
+            <div className="flex justify-between items-center bg-secondary px-4 py-2 text-sm font-mono text-foreground/80">
                 <span>{language}</span>
                 <button
                     onClick={handleCopy}
-                    // Styling keeps the control visually consistent in light/dark mode.
-                    className="bg-gray-200 dark:bg-gray-700 px-2 py-1 cursor-pointer rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                    className="bg-muted px-2 py-1 cursor-pointer rounded hover:bg-muted/80 transition"
                 >
                     {copied ? "Copied!" : "Copy"}
                 </button>

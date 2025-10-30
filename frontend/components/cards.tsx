@@ -65,11 +65,13 @@ export default async function Cards({ OtherPosts }: CardsProps) {
               <div className="p-5 flex flex-col justify-between flex-grow">
                 <div>
                   {/* Category badge. `getRandomColor()` returns a Tailwind color class */}
-                  <span
-                    className={`inline-block ${getRandomColor()} text-xs font-semibold px-3 py-1 rounded-full w-fit mb-3`}
-                  >
-                    {post.category.name}
-                  </span>
+                  {(post.category) && (
+                    <span
+                      className={`inline-block ${getRandomColor()} text-xs font-semibold px-3 py-1 rounded-full w-fit mb-3`}
+                    >
+                      {post.category.name}
+                    </span>
+                  )}
 
                   {/* Post title */}
                   <h3 className="text-lg font-semibold mt-1 text-[#214E4E]">

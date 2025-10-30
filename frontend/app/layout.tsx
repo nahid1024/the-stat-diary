@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="bg-[#F6F7F3]">
+        <div className="bg-background">
           <LoadingBar>{children}  </LoadingBar>
         </div>
         <Toaster position="top-center" />

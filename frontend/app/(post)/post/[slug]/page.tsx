@@ -54,7 +54,7 @@ export default async function PostPage({ params }: Props) {
         description: postData.description,
         content: postData.blocks,
         image: postData.cover.formats.medium.url || "",
-        category: postData.category.name,
+        category: postData.category?.name || null,
         date: postData.updatedAt,
         keytakes: postData.keytakes,
         author: {
@@ -68,10 +68,12 @@ export default async function PostPage({ params }: Props) {
     return (
         <div className="max-w-4xl mx-auto py-10 px-4 lg:px-0">
             {/* Category */}
-            <p className={`inline-block px-3 py-1 rounded-full text-sm ${getRandomColor()} font-semibold mb-2`}>{post.category}</p>
+            {post.category && (
+                <p className={`inline-block px-3 py-1 rounded-full text-sm ${getRandomColor()} font-semibold mb-2`}>{post.category}</p>
+            )}
 
             {/* Title */}
-            <h1 className="text-5xl font-bold my-5 text-gray-800">{post.title.toLowerCase().split(/\s+/).map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>
+            <h1 className="text-5xl font-bold my-5 text-foreground">{post.title.toLowerCase().split(/\s+/).map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>
 
             {/* Author & Date */}
             <div className="flex items-center gap-3 my-8">
@@ -87,7 +89,7 @@ export default async function PostPage({ params }: Props) {
                         className="rounded-full"
                     />
                 )}
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-muted-foreground">
                     <p>{post.author.name}</p>
                     <p>{formatDateTime(post.date)}</p>
                 </div>
@@ -98,7 +100,7 @@ export default async function PostPage({ params }: Props) {
             {post.keytakes && post.keytakes.length > 0 && (
                 <div className="my-10 p-4">
                     <h1 className="font-semibold mb-8 text-xl">Key Takeaways</h1>
-                    <div className="list-disc prose prose-neutral text-gray-900 text-lg">
+                    <div className="list-disc prose prose-neutral text-foreground text-lg">
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>
                             {post.keytakes || ""}
                         </ReactMarkdown>
@@ -127,10 +129,10 @@ export default async function PostPage({ params }: Props) {
 
             {/* Content: the BlocksRenderer handles different structured blocks
                 (rich text, media, tables, charts, code blocks, etc.) */}
-            <div className="prose prose-lg max-w-none text-gray-900
+            <div className="prose prose-lg max-w-none text-foreground
                 prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl
-                prose-p:text-gray-700 prose-p:leading-loose prose-p:text-lg prose-li:ml-6 prose-li:mb-2
-                prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded">
+                prose-p:text-foreground/80 prose-p:leading-loose prose-p:text-lg prose-li:ml-6 prose-li:mb-2
+                prose-code:bg-muted prose-code:px-1 prose-code:rounded">
                 <BlocksRenderer blocks={post.content} />
             </div>
         </div>

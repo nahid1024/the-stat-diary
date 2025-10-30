@@ -6,7 +6,7 @@ const LoadingBar = ({ children }: { children: React.ReactNode }) => {
     return (
         <ProgressProvider
             height="4px"
-            color="#214E4E"
+            color="var(--primary)"
             options={{ showSpinner: false }}
             shallowRouting
         >
