@@ -70,6 +70,7 @@ export default function CategoryFilter() {
         }
     }, [pathname]);
 
+
     return (
         <div className="w-full bg-primary rounded-4xl p-2 flex flex-wrap gap-3 mb-10">
             {[...categories]
@@ -86,7 +87,7 @@ export default function CategoryFilter() {
                             // Button styling toggles based on whether the category
                             // is the active one. We check both the slug and name to
                             // be resilient to different active-value strategies.
-                            className={`px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${active === cat.slug || active === cat.name
+                            className={`px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${active === cat.slug || decodeURIComponent(active) === cat.name
                                 ? "bg-background text-foreground"
                                 : "text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
                                 }`}

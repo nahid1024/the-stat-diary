@@ -24,6 +24,8 @@ import formatDateTime from "@/lib/formatDateTime";
 export default async function Home() {
 	// Fetch posts from Strapi (or the helper). This runs on the server.
 	const posts = await getPosts("all", "");
+	const cover_url = posts[0].cover.formats.medium.url.startsWith("http") ? posts[0].cover.formats.medium.url : `${STRAPI_URL}${posts[0].cover.formats.medium.url}`;
+
 
 	// NOTE: we assume at least one post exists. If your dataset may be
 	// empty, add a defensive check here and render a friendly message.
@@ -68,7 +70,7 @@ export default async function Home() {
                   `next/image` and configure allowed domains in next.config.
                 */}
 									<Image
-										src={`${STRAPI_URL}${posts[0].cover.formats.medium.url}`}
+										src={cover_url}
 										alt={posts[0].title}
 										className="w-full h-48 md:h-100 object-cover rounded-4xl"
 										width={posts[0].cover.formats.medium.width}

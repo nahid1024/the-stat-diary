@@ -36,6 +36,7 @@ export default async function Cards({ OtherPosts }: CardsProps) {
     return <div className="text-gray-800">No posts available.</div>;
   }
 
+
   // Render the list of cards. Each card links to the post's page using
   // Next.js `Link` which enables client-side navigation.
   return (
@@ -54,7 +55,7 @@ export default async function Cards({ OtherPosts }: CardsProps) {
             <div>
               {/* Post cover image. We use the 'medium' format provided by Strapi */}
               <Image
-                src={`${STRAPI_URL}${post.cover.formats.medium.url}`}
+                src={post.cover.formats.medium.url.startsWith("http") ? post.cover.formats.medium.url : `${STRAPI_URL}${post.cover.formats.medium.url}`}
                 alt={post.title}
                 className="w-full h-48 object-cover"
                 width={400}
@@ -85,7 +86,7 @@ export default async function Cards({ OtherPosts }: CardsProps) {
                 {/* Author section: avatar + name */}
                 <div className="flex items-center gap-3 mt-6">
                   <Image
-                    src={`${STRAPI_URL}${post.author.avatar.formats.small.url}`}
+                    src={post.author.avatar.formats.small.url.startsWith("http") ? post.author.avatar.formats.small.url : `${STRAPI_URL}${post.author.avatar.formats.small.url}`}
                     alt={post.author.name}
                     className="w-8 h-8 rounded-full object-cover"
                     width={32}

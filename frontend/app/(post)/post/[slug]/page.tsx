@@ -62,6 +62,8 @@ export default async function PostPage({ params }: Props) {
             image: postData.author.avatar.url || "",
         },
     };
+    const cover_url = postData.cover.formats.medium.url.startsWith("http") ? postData.cover.formats.medium.url : `${STRAPI_URL}${postData.cover.formats.medium.url}`;
+    const author_avatar_url = postData.author.avatar.url.startsWith("http") ? postData.author.avatar.url : `${STRAPI_URL}${postData.author.avatar.url}`;
     // Tip: uncomment to inspect block structure during development
     // console.log(post.content);
 
@@ -81,7 +83,7 @@ export default async function PostPage({ params }: Props) {
                     // Using Next's Image for the author avatar provides
                     // automatic optimization and better layout shifting.
                     <Image
-                        src={`${STRAPI_URL}${post.author.image}`}
+                        src={author_avatar_url}
                         alt={post.author.name}
                         width={40}
                         height={40}
@@ -117,7 +119,7 @@ export default async function PostPage({ params }: Props) {
                         is allowed in next.config.js.
                     */}
                     <Image
-                        src={`${STRAPI_URL}${post.image}`}
+                        src={cover_url}
                         alt={post.title}
                         width={800}
                         height={400}

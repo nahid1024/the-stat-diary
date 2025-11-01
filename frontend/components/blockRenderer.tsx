@@ -80,7 +80,7 @@ export default function BlocksRenderer({ blocks }: { blocks: Block[] }) {
 						return (
 							<div key={`media-${block.id}`} className="flex flex-col items-center">
 								<Image
-									src={`${strapiUrl}${block.file.formats.medium.url}`}
+									src={`${block.file.formats.medium.url.startsWith("http") ? block.file.formats.medium.url : `${strapiUrl}${block.file.formats.medium.url}`}`}
 									alt={block.file.formats.medium.alt || "image"}
 									className="rounded-md"
                                     width={block.file.formats.medium.width}
