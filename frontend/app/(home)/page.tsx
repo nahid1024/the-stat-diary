@@ -4,7 +4,6 @@ import CategoryFilter from "@/components/CategoryFilter";
 import Cards from "@/components/cards";
 import { getPosts, STRAPI_URL } from "@/lib/strapi";
 import formatDateTime from "@/lib/formatDateTime";
-
 /**
  * Home
  *
