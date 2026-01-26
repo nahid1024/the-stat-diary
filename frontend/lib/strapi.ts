@@ -1,5 +1,5 @@
 // lib/strapi.ts
-export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_BASE;
+export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_BASE || "http://localhost:1337";
 
 
 export async function getPosts(filterBy: string, filterString: string) {
