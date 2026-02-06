@@ -1,8 +1,8 @@
 "use client"
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { SearchIcon } from 'lucide-react'
 import clsx from 'clsx'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 
 interface SearchBarProps {
     className?: string
@@ -11,6 +11,9 @@ interface SearchBarProps {
 export default function SearchBar({ className }: SearchBarProps) {
     const searchParams = useSearchParams()
     const router = useRouter()
+    const pathname = usePathname()
+    // Track the input so we can restore focus after route changes.
+    const inputRef = useRef<HTMLInputElement | null>(null)
 
     // Local input state
     const [input, setInput] = useState(searchParams.get("query") || "")
@@ -19,6 +22,17 @@ export default function SearchBar({ className }: SearchBarProps) {
     useEffect(() => {
         setInput(searchParams.get("query") || "")
     }, [searchParams])
+
+    // Preserve focus when navigating to the search results page so the cursor doesn't reset.
+    useEffect(() => {
+        if (pathname !== "/search") return
+        const inputEl = inputRef.current
+        if (!inputEl) return
+
+        inputEl.focus()
+        const valueLength = inputEl.value.length
+        inputEl.setSelectionRange(valueLength, valueLength)
+    }, [pathname, searchParams])
 
     // Debounce URL updates to avoid too many API calls
     useEffect(() => {
@@ -43,6 +57,7 @@ export default function SearchBar({ className }: SearchBarProps) {
             onSubmit={handleSubmit}
         >
             <input
+                ref={inputRef}
                 type="text"
                 placeholder="Search the blog"
                 value={input}

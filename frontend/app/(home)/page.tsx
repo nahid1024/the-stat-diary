@@ -56,7 +56,7 @@ export default async function Home() {
 									</h2>
 									{/* Read more Button */}
 									<div>
-										<button type="button" className="outline-none border-none px-7 py-3 mt-10 bg-primary text-primary-foreground rounded-full">Read More</button>
+										<button type="button" className="outline-none border-none px-7 py-3 mt-10 bg-primary cursor-pointer text-primary-foreground rounded-full">Read More</button>
 									</div>
 
 								</div>
