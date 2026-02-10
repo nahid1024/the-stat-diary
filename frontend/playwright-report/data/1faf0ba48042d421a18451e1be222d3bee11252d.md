@@ -1,0 +1,79 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - navigation [ref=e5]:
+        - link "The Stat Diary" [ref=e6]:
+          - /url: /
+          - generic [ref=e7]: The Stat Diary
+        - list [ref=e8]:
+          - listitem [ref=e9] [cursor=pointer]: Featured
+          - listitem [ref=e10] [cursor=pointer]: The Stats Series
+          - listitem [ref=e11] [cursor=pointer]: Resources
+        - generic [ref=e12]:
+          - textbox "Search the blog" [active] [ref=e13]: data
+          - button [ref=e14]:
+            - img [ref=e15]
+    - main [ref=e18]:
+      - generic [ref=e19]:
+        - link "January 25, 2026 Why Koalas Are The Greatest Data Scientists Read More Why Koalas are the greatest data scientists" [ref=e21]:
+          - /url: /post/why-koalas-are-the-greatest-datascientists
+          - generic [ref=e22]:
+            - generic [ref=e23]:
+              - paragraph [ref=e25]: January 25, 2026
+              - heading "Why Koalas Are The Greatest Data Scientists" [level=2] [ref=e26]
+              - button "Read More" [ref=e28] [cursor=pointer]
+            - img "Why Koalas are the greatest data scientists" [ref=e30]
+        - heading "Read By Topic" [level=1] [ref=e31]
+        - generic [ref=e32]:
+          - link "All" [ref=e33]:
+            - /url: /
+            - button "All" [ref=e34] [cursor=pointer]
+          - link "Machine Learning" [ref=e35]:
+            - /url: /category/Machine Learning
+            - button "Machine Learning" [ref=e36] [cursor=pointer]
+        - link "Am I crazy? Machine Learning Am I crazy? f wnme few gajH ,nm <N jknfsa lEJKhsrbgs ajgbnfa s,na vs Nahid By Nahid" [ref=e39]:
+          - /url: /post/am-i-crazy
+          - generic [ref=e40]:
+            - img "Am I crazy?" [ref=e41]
+            - generic [ref=e42]:
+              - generic [ref=e43]:
+                - generic [ref=e44]: Machine Learning
+                - heading "Am I crazy?" [level=3] [ref=e45]
+                - paragraph [ref=e46]: f wnme few gajH ,nm <N jknfsa lEJKhsrbgs ajgbnfa s,na vs
+              - generic [ref=e47]:
+                - img "Nahid" [ref=e48]
+                - generic [ref=e49]: By Nahid
+    - contentinfo [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - heading "The Stats Diary" [level=2] [ref=e53]
+          - paragraph [ref=e54]: Exploring data, statistics, and insights — simplified for everyone.
+        - generic [ref=e55]:
+          - heading "Quick Links" [level=3] [ref=e56]
+          - list [ref=e57]:
+            - listitem [ref=e58]:
+              - link "Home" [ref=e59]:
+                - /url: "#"
+            - listitem [ref=e60]:
+              - link "About" [ref=e61]:
+                - /url: "#"
+            - listitem [ref=e62]:
+              - link "Blog" [ref=e63]:
+                - /url: "#"
+            - listitem [ref=e64]:
+              - link "Contact" [ref=e65]:
+                - /url: "#"
+        - generic [ref=e66]:
+          - heading "Stay Updated" [level=3] [ref=e67]
+          - generic [ref=e68]:
+            - textbox "Your email" [ref=e69]
+            - button "Subscribe" [ref=e70] [cursor=pointer]
+      - generic [ref=e71]: © 2026 The Stats Diary. All rights reserved.
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e77] [cursor=pointer]:
+    - img [ref=e78]
+  - alert [ref=e83]
+```

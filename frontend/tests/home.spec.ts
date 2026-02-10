@@ -12,11 +12,9 @@ test('homepage renders and has main elements', async ({ page }) => {
 
   // Try typing into search and triggering the search (debounced replace used in UI)
   await search.fill('data');
-  // Submit the form by pressing Enter
-  await search.press('Enter');
 
   // Expect navigation to search results (URL contains /search?query=)
-  await expect(page).toHaveURL(/\/search\?query=/);
+  await expect(page).toHaveURL(/\/search\?query=data/, { timeout: 10000 });
   await expect(page.getByText(/Results for/)).toBeVisible();
 
   // Back to home and verify cards section exists
